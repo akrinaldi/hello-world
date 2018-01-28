@@ -1,0 +1,59 @@
+> CandidateName<-c("Jeb","Donald","Ted","Marco","Carly","Hillary","Bernie")
+> ABCpoliticalpollresults<-c(4,62,51,21,2,14,15)
+> CBSpoliticalpollresults<-c(12,75,43,19,1,21,19)
+> pollresults<-cbind(CandidateName,ABCpoliticalpollresults,CBSpoliticalpollresults)
+> pollresults
+ CandidateName ABCpoliticalpollresults CBSpoliticalpollresults
+[1,] "Jeb"         "4"                     "12"                   
+[2,] "Donald"      "62"                    "75"                   
+[3,] "Ted"         "51"                    "43"                   
+[4,] "Marco"       "21"                    "19"                   
+[5,] "Carly"       "2"                     "1"                    
+[6,] "Hillary"     "14"                    "21"                   
+[7,] "Bernie"      "15"                    "19"  
+> pollresults.df<-data.frame(CandidateName,ABCpoliticalpollresults,CBSpoliticalpollresults)
+> pollresults.df
+  CandidateName ABCpoliticalpollresults CBSpoliticalpollresults
+1           Jeb                       4                      12
+2        Donald                      62                      75
+3           Ted                      51                      43
+4         Marco                      21                      19
+5         Carly                       2                       1
+6       Hillary                      14                      21
+7        Bernie                      15                      19
+** Confusion begins **
+> mean(pollresults)
+[1] NA
+Warning message:
+In mean.default(pollresults) :
+  argument is not numeric or logical: returning NA
+> mean(pollresults.df)
+[1] NA
+Warning message:
+In mean.default(pollresults.df) :
+  argument is not numeric or logical: returning NA
+> mean(pollresults.df[,2:3])
+[1] NA
+Warning message:
+In mean.default(pollresults.df[, 2:3]) :
+  argument is not numeric or logical: returning NA
+> mean(as.data.frame(pollresults.df))
+[1] NA
+Warning message:
+In mean.default(as.data.frame(pollresults.df)) :
+  argument is not numeric or logical: returning NA
+  ** Testing to make sure I know what columns are **
+> mean(pollresults.df[,2])
+[1] 24.14286
+> mean(pollresults.df[,3])
+[1] 27.14286
+> mean(ABCpoliticalpollresults)
+[1] 24.14286
+> mean(CBSpoliticalpollresults)
+[1] 27.14286
+** However **
+> mean(pollresults.df[,2:3])
+[1] NA
+Warning message:
+In mean.default(pollresults.df[,2:3]) :
+  argument is not numeric or logical: returning NA
