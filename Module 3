@@ -57,3 +57,19 @@ In mean.default(as.data.frame(pollresults.df)) :
 Warning message:
 In mean.default(pollresults.df[,2:3]) :
   argument is not numeric or logical: returning NA
+** Emailed professor for help **
+** Time to define some things **
+> r=rowMeans(pollresults.df[,2:3])
+> r.df=data.frame(CandidateName,r)
+> mean(as.matrix(pollresults.df[,2:3]))
+[1] 25.64286
+** I then went back and did this process with another data frame **
+> grades.df
+   Name Test1 Test2
+1   Bob    80    40
+2  Bill    95    87
+3 Betty    92    90
+> z<-rowMeans(grades.df[,2:3])
+> mean(as.matrix(grades.df[,2:3]))
+[1] 80.66667
+** Success! **
