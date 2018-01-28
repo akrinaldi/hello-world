@@ -21,7 +21,7 @@
 5         Carly                       2                       1
 6       Hillary                      14                      21
 7        Bernie                      15                      19
-** Confusion begins **
+# Confusion begins
 > mean(pollresults)
 [1] NA
 Warning message:
@@ -42,7 +42,7 @@ In mean.default(pollresults.df[, 2:3]) :
 Warning message:
 In mean.default(as.data.frame(pollresults.df)) :
   argument is not numeric or logical: returning NA
-  ** Testing to make sure I know what columns are **
+# Testing to make sure I know what columns are 
 > mean(pollresults.df[,2])
 [1] 24.14286
 > mean(pollresults.df[,3])
@@ -51,19 +51,19 @@ In mean.default(as.data.frame(pollresults.df)) :
 [1] 24.14286
 > mean(CBSpoliticalpollresults)
 [1] 27.14286
-** However **
+# However 
 > mean(pollresults.df[,2:3])
 [1] NA
 Warning message:
 In mean.default(pollresults.df[,2:3]) :
   argument is not numeric or logical: returning NA
-** Emailed professor for help **
-** Time to define some things **
+# Emailed professor for help 
+# Time to define some things 
 > r=rowMeans(pollresults.df[,2:3])
 > r.df=data.frame(CandidateName,r)
 > mean(as.matrix(pollresults.df[,2:3]))
 [1] 25.64286
-** I then went back and did this process with another data frame **
+# I then went back and did this process with another data frame 
 > grades.df
    Name Test1 Test2
 1   Bob    80    40
@@ -72,4 +72,4 @@ In mean.default(pollresults.df[,2:3]) :
 > z<-rowMeans(grades.df[,2:3])
 > mean(as.matrix(grades.df[,2:3]))
 [1] 80.66667
-** Success! **
+# Success! 
