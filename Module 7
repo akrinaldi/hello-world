@@ -1,0 +1,124 @@
+# The beginning of this will be me creating examples to go along with those given in our professor's powerpoint.
+> myObject<-c(1,2,3,4,5)
+# Testing myObject
+> isS4(myObject)
+[1] FALSE
+> mode(myObject)
+[1] "numeric"
+> typeof(myObject)
+[1] "double"
+> class(myObject)
+[1] "numeric"
+> is.character(myObject)
+[1] FALSE
+> is.vector(myObject)
+[1] TRUE
+> summary(myObject)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      1       2       3       3       4       5 
+> print(myObject)
+[1] 1 2 3 4 5
+# Changing up myObject for an exploration of classes
+> myObject<-list(name="A",weight=112,height=5)
+> class(myObject)<-"female"
+> myObject
+$name
+[1] "A"
+
+$weight
+[1] 112
+
+$height
+[1] 5
+
+attr(,"class")
+[1] "female"
+> attr(myObject,"class")
+[1] "female"
+> isS4(myObject)
+[1] FALSE
+# Making a class and function
+> student=function(n,c,y) 
++     {
++     if(c>5||c<0)stop("Classes must be between 0 and 5") 
++     if(y>4||y<0)stop("Year must be between 0 and 4") 
++     value=list(name=n,classes=c,year=y)
++     attr(value,"class")="student"
++     value
++ }
+> s<-student("A",4,3)
+> s
+$name
+[1] "A"
+
+$classes
+[1] 4
+
+$year
+[1] 3
+
+attr(,"class")
+[1] "student"
+# Now trying to do S4 objects
+> setClass("tongshi",representation(name="character",yearsatcompany="numeric",entrylevel="logical"))
+> xiaowang<-new("tongshi",name="Wang Wenjia",yearsatcompany=4,entrylevel=FALSE)
+> isS4(xiaowang)
+[1] TRUE
+> setMethod("show","tongshi",function(xiaowang){
++     cat(xiaowang@name,"\n")
++     cat(xiaowang@yearsatcompany,"years at company\n")
++     cat("entry level:",xiaowang@entrylevel,"\n")
++     })
+> show(xiaowang)
+Wang Wenjia 
+4 years at company
+entry level: FALSE 
+# Messing with slots
+> xiaowang@name
+[1] "Wang Wenjia"
+> xiaowang@yearsatcompany
+[1] 4
+> xiaowang@entrylevel
+[1] FALSE
+> xiaowang@yearsatcompany<-7
+> xiaowang
+Wang Wenjia 
+7 years at company
+entry level: FALSE 
+> slot(xiaowang,"name")<-"Wang Jiawen"
+> xiaowang
+Wang Jiawen 
+7 years at company
+entry level: FALSE 
+# Now begins the assignment - creating my S3 object
+> OwenWilson=list(smiles=TRUE,favWord="Wow")
+> OwenWilson$smiles
+[1] TRUE
+> otype(OwenWilson) #Found in pryr package
+[1] "base"
+# For our S4 object, let's make another Xiao Wang
+> setClass("tongxue",representation(name="character",countryoforigin="character",yearsstudyingchinese="numeric",traveledtochina="logical"))
+# I based this information off of one of my fellow students in Chinese class
+> KangTongMing<-new("tongxue",name="Kang Tongming",countryoforigin="U.S.",yearsstudyingchinese=2,traveledtochina=TRUE)
+>  show(KangTongMing)
+An object of class "tongxue"
+Slot "name":
+[1] "Kang Tongming"
+
+Slot "countryoforigin":
+[1] "U.S."
+
+Slot "yearsstudyingchinese":
+[1] 2
+
+Slot "traveledtochina":
+[1] TRUE
+> otype(KangTongMing)
+[1] "S4"
+# Then I made an S3 object into an S4
+> n<-setClass("Actor",slots = list(smiles="logical",favWord="character"))
+> OwenWilson<-new("Actor",smiles=TRUE,favWord="Wow")
+> OwenWilson@smiles
+[1] TRUE
+> OwenWilson@favWord
+[1] "Wow"
