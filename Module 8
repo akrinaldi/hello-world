@@ -1,0 +1,105 @@
+#scan(),readline(),print() and cat()
+# Our data
+#Name,Age,Sex,Grade
+#Raul,25,Male,80
+#Booker,18,Male,83
+#Lauri,21,Female,90
+#Leonie,21,Female,91
+#Sherlyn,22,Female,85
+#Mikaela,20,Female,69
+#Raphael,23,Male,91
+#Aiko,24,Female,97
+#Tiffaney,21,Female,78
+#Corina,23,Female,81
+#Petronila,23,Female,98
+#Alecia,20,Female,87
+#Shemika,23,Female,97
+#Fallon,22,Female,90
+#Deloris,21,Female,67
+#Randee,23,Female,91
+#Eboni,20,Female,84
+#Delfina,19,Female,93
+#Ernestina,19,Female,93
+#Milo,19,Male,67
+> scan("C:/Users/rinal/OneDrive/Desktop/DataSet.txt",what=list(Name="character",Age="numeric",Sex="character",Grade="numeric"))
+> DataSet$Age
+ [1] 25 18 21 21 22 20 23 24 21 23 23 20 23 22 21 23 20 19 19 19
+> DataSet$Name
+ [1] Raul      Booker    Lauri     Leonie    Sherlyn   Mikaela   Raphael  
+ [8] Aiko      Tiffaney  Corina    Petronila Alecia    Shemika   Fallon   
+[15] Deloris   Randee    Eboni     Delfina   Ernestina Milo     
+20 Levels: Aiko Alecia Booker Corina Delfina Deloris Eboni ... Tiffaney
+#On the right track, but let's input this in a different way
+> D<-read.table(file.choose(DataSet),header = TRUE,sep = ",")
+> D
+        Name Age    Sex Grade
+1       Raul  25   Male    80
+2     Booker  18   Male    83
+3      Lauri  21 Female    90
+4     Leonie  21 Female    91
+5    Sherlyn  22 Female    85
+6    Mikaela  20 Female    69
+7    Raphael  23   Male    91
+8       Aiko  24 Female    97
+9   Tiffaney  21 Female    78
+10    Corina  23 Female    81
+11 Petronila  23 Female    98
+12    Alecia  20 Female    87
+13   Shemika  23 Female    97
+14    Fallon  22 Female    90
+15   Deloris  21 Female    67
+16    Randee  23 Female    91
+17     Eboni  20 Female    84
+18   Delfina  19 Female    93
+19 Ernestina  19 Female    93
+20      Milo  19   Male    67
+# Now let us reorganize this dataset
+> ZZ<-ddply(D,"Sex",transform,Grade.Average=mean(Grade))
+> ZZ
+Name Age    Sex Grade Grade.Average
+1      Lauri  21 Female    90       86.9375
+2     Leonie  21 Female    91       86.9375
+3    Sherlyn  22 Female    85       86.9375
+4    Mikaela  20 Female    69       86.9375
+5       Aiko  24 Female    97       86.9375
+6   Tiffaney  21 Female    78       86.9375
+7     Corina  23 Female    81       86.9375
+8  Petronila  23 Female    98       86.9375
+9     Alecia  20 Female    87       86.9375
+10   Shemika  23 Female    97       86.9375
+11    Fallon  22 Female    90       86.9375
+12   Deloris  21 Female    67       86.9375
+13    Randee  23 Female    91       86.9375
+14     Eboni  20 Female    84       86.9375
+15   Delfina  19 Female    93       86.9375
+16 Ernestina  19 Female    93       86.9375
+17      Raul  25   Male    80       80.2500
+18    Booker  18   Male    83       80.2500
+19   Raphael  23   Male    91       80.2500
+20      Milo  19   Male    67       80.2500
+# Making a file
+> write.table(ZZ,"Sorted_Average")
+# RStudio took this no problem, but refused to give me the new file. That was honestly pretty odd. It gave me no errors but the new file just didn't exist.
+# Anyways, onward to the next assignment
+> ND<-subset(D,grepl("[iI]",D$Name))
+> ND
+        Name Age    Sex Grade
+3      Lauri  21 Female    90
+4     Leonie  21 Female    91
+6    Mikaela  20 Female    69
+8       Aiko  24 Female    97
+9   Tiffaney  21 Female    78
+10    Corina  23 Female    81
+11 Petronila  23 Female    98
+12    Alecia  20 Female    87
+13   Shemika  23 Female    97
+15   Deloris  21 Female    67
+17     Eboni  20 Female    84
+18   Delfina  19 Female    93
+19 Ernestina  19 Female    93
+20      Milo  19   Male    67
+> write.table(ND,file = "DataSetSub",sep = ",")
+# AGAIN, both R and RStudio take the write.table() function without a single error but refuse to create my new data file. I don't know what I'm doing wrong.
+# I even tried directly creating a csv
+> write.csv(ND,file = "DataSetSub")
+# Still nothing
