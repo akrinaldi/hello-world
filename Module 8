@@ -103,3 +103,4 @@ Name Age    Sex Grade Grade.Average
 # I even tried directly creating a csv
 > write.csv(ND,file = "DataSetSub")
 # Still nothing
+# Searching through my computer, I was able to find them stuffed away in my OneDrive folder, sitting there without a file type. Far from a flawless execution, write.table()...
