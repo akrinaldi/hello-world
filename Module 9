@@ -1,6 +1,6 @@
 # Regular R plot
 > plot(mtcars$mpg,mtcars$cyl,main="mpg vs cyl",xlab="mpg",ylab="cyl")
 # Lattice plot
-> xyplot(mpg~cyl,data = mtcars,main="mpg vs cyl",xlab="mpg",ylab = "cyl",pch=".")
+> xyplot(mpg~cyl,data = mtcars,main="mpg vs cyl",xlab="cyl",ylab = "mpg",pch=".")
 # ggplot2
 > ggplot(mtcars,aes(x=mpg,y=cyl))+geom_point(color="blue")
