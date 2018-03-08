@@ -1,0 +1,19 @@
+# For my method for a research project I am working on, I randomly generated numbers for article selection
+> runif(3,min=min = 1,max=50)
+Error: unexpected '=' in "runif(3,min=min ="
+> runif(3,min = 1,max = 50)
+[1] 47.05889 24.93173 14.82245
+> ML<-47,25,15
+Error: unexpected ',' in "ML<-47,"
+> ML<-list(47,25,15)
+> ML
+[[1]]
+[1] 47
+
+[[2]]
+[1] 25
+
+[[3]]
+[1] 15
+# I think making this runif() generator of 3 numbers a function would be useful for my final project for R Programming
+# Leaving this code here for reference
