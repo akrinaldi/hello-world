@@ -3,8 +3,8 @@ Type: Package
 Title: Helps with content analysis based on word frequencies
 Version: 0.0.0.9001
 Author: "Abby Rinaldi <rinaldia@mail.usf.edu> [aut,cre]"
-Description: This package will allow users to do content analysis for research.
-    For those looking to search for frequencies in word usage, this package will allow user to search for keywords in text.
+Description: This package will allow users to do a content analysis for research.
+    For those looking to search for frequencies in word usage, this package will allow user to search for keywords in the text.
     Users can then take the frequency data and make charts and tables to use for their analysis.
 License: CCO
 Encoding: UTF-8
