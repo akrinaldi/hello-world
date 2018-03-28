@@ -1,0 +1,168 @@
+# Let's debug some code
+> tukey_multiple <- function(x){
++ outliers<-array(TRUE,dim = dim(x))
++ for(j in 1:ncol(x))
++ {
++ outliers[,j]<-outliers[,j]&&tukey.outlier(x[.j])
++ }
++ outlier.vec<-vector(length = nrow(x))
++ for(i in 1:nrow(x)){
++ outlier.vec[i]<-all(outliers[i,])
++ }
++ return(outlier.vec)
+# Let's run the function with some data
+> datadata<-c(1,2,3,3,4,5,6,7,7,7,7,9)
+> hhh<-c(1,1,1,2,2,2,3,4,5,7,87,8)
+> nbv<-cbind(datadata,hhh)
+> tukey_multiple(nbv)
+Error in tukey.outlier(x[.j]) : could not find function "tukey.outlier"
+# We don't have a tukey.outlier function
+# Traceback
+> traceback()
+1: tukey_multiple(nbv)
+# Debug
+> debug(tukey_multiple)
+> tukey_multiple(nbv)
+debugging in: tukey_multiple(nbv)
+debug at #1: {
+outliers <- array(TRUE, dim = dim(x))
+for (j in 1:ncol(x)) {
+outliers[, j] <- outliers[, j] && tukey.outlier(x[.j])
+}
+outlier.vec <- vector(length = nrow(x))
+for (i in 1:nrow(x)) {
+outlier.vec[i] <- all(outliers[i, ])
+}
+return(outlier.vec)
+}
+Browse[2]> ls
+function (name, pos = -1L, envir = as.environment(pos), all.names = FALSE, 
+pattern, sorted = TRUE) 
+{
+if (!missing(name)) {
+pos <- tryCatch(name, error = function(e) e)
+if (inherits(pos, "error")) {
+name <- substitute(name)
+if (!is.character(name)) 
+name <- deparse(name)
+warning(gettextf("%s converted to character string", 
+sQuote(name)), domain = NA)
+pos <- name
+}
+}
+all.names <- .Internal(ls(envir, all.names, sorted))
+if (!missing(pattern)) {
+if ((ll <- length(grep("[", pattern, fixed = TRUE))) && 
+ll != length(grep("]", pattern, fixed = TRUE))) {
+if (pattern == "[") {
+pattern <- "\\["
+warning("replaced regular expression pattern '[' by '\\\\['")
+}
+else if (length(grep("[^\\\\]\\[<-", pattern))) {
+pattern <- sub("\\[<-", "\\\\\\[<-", pattern)
+warning("replaced '[<-' by '\\\\[<-' in regular expression pattern")
+}
+}
+grep(pattern, all.names, value = TRUE)
+}
+else all.names
+}
+<bytecode: 0x000000000cb715f0>
+<environment: namespace:base>
+Browse[2]> where
+where 1: tukey_multiple(nbv)
+Browse[2]> n
+debug at #2: outliers <- array(TRUE, dim = dim(x))
+Browse[2]> c
+Error in tukey.outlier(x[.j]) : could not find function "tukey.outlier"
+# Time to define tukey.outliers and our quartiles - tell R what an outlier is
+> quartiles=function(data){
++ quarts=quantile(data,probs = c(.25,.75))
++ IQR=quarts[2]-quarts[1]
++ return(c(quarts,IQR))
++ }
+> tukey.outlier<-function(k){
++ if(!is.null(dim(k))){
++ return(tukey_multiple(k))
++ }
++ else {
++ quarts<-quartiles(k)
++ lowerbound<-quarts[1]-1.5*quarts[3]
++ upperbound<-quarts[2]+1.5*quarts[3]
++ outliers<-c(rep(FALSE,length(k)))
++ outliers<-((k<lowerbound)|(k>upperbound))
++ return(outliers)
++ }
++ }
+#Debug again
+> debug(tukey_multiple)
+> tukey_multiple(nbv)
+debugging in: tukey_multiple(nbv)
+debug at #1: {
+    outliers <- array(TRUE, dim = dim(x))
+    for (j in 1:ncol(x)) {
+        outliers[, j] <- outliers[, j] && tukey.outlier(x[, j])
+    }
+    outlier.vec <- vector(length = nrow(x))
+    for (i in 1:nrow(x)) {
+        outlier.vec[i] <- all(outliers[i, ])
+    }
+    return(outlier.vec)
+}
+Browse[2]> n
+debug at #2: outliers <- array(TRUE, dim = dim(x))
+Browse[2]> n
+debug at #3: for (j in 1:ncol(x)) {
+    outliers[, j] <- outliers[, j] && tukey.outlier(x[, j])
+}
+Browse[2]> n
+debug at #5: outliers[, j] <- outliers[, j] && tukey.outlier(x[, j])
+Browse[2]> n
+debug at #5: outliers[, j] <- outliers[, j] && tukey.outlier(x[, j])
+Browse[2]> n
+debug at #7: outlier.vec <- vector(length = nrow(x))
+Browse[2]> n
+debug at #8: for (i in 1:nrow(x)) {
+    outlier.vec[i] <- all(outliers[i, ])
+}
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #9: outlier.vec[i] <- all(outliers[i, ])
+Browse[2]> n
+debug at #11: return(outlier.vec)
+Browse[2]> n
+exiting from: tukey_multiple(nbv)
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[12] FALSE
+# Change our function
+> tukey_multiple = function(x) {
++     outliers <- array(TRUE,dim=dim(x))
++     outliers = apply(x,2,tukey.outlier)
++     outliers.vec = apply(outliers,1,any)
++     return(outliers.vec)
++ }
+> tukey_multiple(nbv)
+[1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE TRUE
+[12] FALSE
+# Success!
